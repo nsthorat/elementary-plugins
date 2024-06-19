@@ -2,7 +2,7 @@
 
 SRVB is a small digital reverb audio plugin (VST3/AU) for MacOS and Windows.
 
-This is the Svelte + Bun version of the plugin, which is forked from
+This is the Svelte + Typescript + Bun version of the plugin, which is forked from
 https://github.com/elemaudio/srvb.
 
 This project demonstrates one way to write an audio plugin using JavaScript and familiar web
