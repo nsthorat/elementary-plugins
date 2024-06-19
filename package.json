@@ -1,24 +1,28 @@
 {
-  "name": "ui",
+  "name": "elementary-plugins",
+  "version": "0.0.1",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "clean": "rimraf dist",
     "predev": "npm run clean",
     "prebuild": "npm run clean",
-    "dev": "npm run dev-native && concurrently \"npm run dev-dsp\" \"vite\"",
+    "dev": "bun dev-native && concurrently \"npm run dev-dsp\" \"bun vite\"",
     "dev-native": "zx scripts/build-native.mjs --dev",
     "dev-dsp": "esbuild dsp/main.js --watch --bundle --outfile=public/dsp.main.js",
     "build-native": "zx scripts/build-native.mjs",
     "build-dsp": "esbuild dsp/main.js --bundle --outfile=public/dsp.main.js",
     "build-ui": "vite build",
-    "build": "npm run build-dsp && npm run build-ui && npm run build-native",
-    "preview": "vite preview"
+    "build": "bun build-dsp && bun build-ui && bun build-native",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "lint": "prettier --check . && eslint .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@elemaudio/core": "^3.0.0",
     "@heroicons/react": "^2.0.18",
+    "@sveltejs/kit": "~2.5.17",
     "@use-gesture/react": "^10.2.27",
     "cpy-cli": "^4.2.0",
     "esbuild": "^0.17.8",
@@ -27,17 +31,29 @@
     "react-dom": "^18.2.0",
     "resize-observer-polyfill": "^1.5.1",
     "rimraf": "^5.0.0",
+    "svelte-gesture": "^0.1.4",
+    "svelte-hero-icons": "^5.1.0",
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.2",
+    "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
     "@vitejs/plugin-react": "^4.0.0",
-    "autoprefixer": "^10.4.14",
+    "autoprefixer": "^10.4.19",
     "concurrently": "^8.2.2",
-    "postcss": "^8.4.24",
-    "tailwindcss": "^3.3.2",
-    "vite": "^4.3.9",
-    "zx": "^7.2.3"
-  }
+    "postcss": "^8.4.38",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "prettier-plugin-svelte": "^3.2.4",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "svelte-adapter-bun": "^0.5.2",
+    "tailwindcss": "^3.4.4",
+    "tslib": "^2.4.1",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.0.0-alpha.20",
+    "vite": "^5.0.3",
+    "zx": "^8.1.2"
+  },
+  "type": "module"
 }

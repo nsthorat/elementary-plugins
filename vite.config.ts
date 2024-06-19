@@ -1,9 +1,9 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import {sveltekit} from '@sveltejs/kit/vite';
+import {defineConfig, searchForWorkspaceRoot} from 'vite';
 
-import { execSync } from 'node:child_process'
+import {execSync} from 'node:child_process';
 
-const currentCommit = execSync("git rev-parse --short HEAD").toString();
+const currentCommit = execSync('git rev-parse --short HEAD').toString();
 const date = new Date();
 const dateString = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
 
@@ -17,11 +17,11 @@ const dateString = `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate(
 function pubDirReloadPlugin() {
   return {
     name: 'pubDirReload',
-    handleHotUpdate({file, modules, server}) {
+    handleHotUpdate({file, modules, server}: {file: string; modules: any; server: any}) {
       if (file.includes('public/dsp.main.js')) {
         server.ws.send({
           type: 'custom',
-          event: 'reload-dsp',
+          event: 'reload-dsp'
         });
       }
 
@@ -30,12 +30,20 @@ function pubDirReloadPlugin() {
   };
 }
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  base: './',
   define: {
     __COMMIT_HASH__: JSON.stringify(currentCommit),
-    __BUILD_DATE__: JSON.stringify(dateString),
+    __BUILD_DATE__: JSON.stringify(dateString)
   },
-  plugins: [react(), pubDirReloadPlugin()],
-})
+  plugins: [sveltekit(), pubDirReloadPlugin()],
+  server: {
+    fs: {
+      allow: [
+        // search up for workspace root
+        searchForWorkspaceRoot(process.cwd()),
+        // your custom rules
+        './public/manifest.json'
+      ]
+    }
+  }
+});
