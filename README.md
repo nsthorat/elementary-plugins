@@ -9,6 +9,8 @@ This project demonstrates one way to write an audio plugin using JavaScript and 
 technologies, and while there are several variants on this approach, it is meant to be both a
 compelling example and a good starting point for audio plugins made with a similar architecture.
 
+<img width="1509" alt="image" src="https://github.com/nsthorat/elementary-plugins/assets/1100749/222a6631-ab6d-456b-8d89-bbc4fca10781">
+
 ## Overview
 
 See: https://github.com/elemaudio/srvb
