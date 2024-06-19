@@ -1,4 +1,4 @@
-# SRVB + Svelte
+# SRVB VST: Svelte + Typescript + Bun
 
 SRVB is a small digital reverb audio plugin (VST3/AU) for MacOS and Windows.
 
